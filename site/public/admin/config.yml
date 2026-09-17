@@ -1,0 +1,118 @@
+# Decap CMS configuration (phase 3).
+#
+# Local editing today: run `npm run cms` in /site (starts decap-server), then
+# `npm run dev` and open http://localhost:5173/admin/ — local_backend below
+# lets Decap write straight to the working tree with no GitHub auth.
+#
+# Production (phase 3): the `github` backend needs an OAuth gateway because
+# GitHub OAuth requires a client secret that can't live in a static site.
+# Plan: a tiny Lambda function URL running an OAuth relay, added to ApiStack;
+# set `base_url` here to that endpoint. If that turns out painful we discuss
+# falling back to Sanity before switching (per project decisions).
+backend:
+  name: github
+  repo: NormTheThird/sheilas-website
+  branch: main
+  # base_url: https://TODO-oauth-gateway.example.com
+
+local_backend: true
+
+media_folder: site/public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: Site Info
+        file: content/site.json
+        fields:
+          - { name: name, label: Site Name, widget: string }
+          - { name: legalName, label: Legal Name, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: locationLine, label: Location Line, widget: string }
+          - { name: phone, label: Phone, widget: string }
+          - { name: email, label: Email, widget: string }
+          - name: social
+            label: Social Links
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: url, label: URL, widget: string }
+          - name: communityLocations
+            label: Community Locations
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: url, label: URL, widget: string }
+          - { name: mapEmbedUrl, label: Map Embed URL, widget: string, required: false }
+          - { name: bookingEmbedUrl, label: Booking Embed URL, widget: string, required: false }
+          - { name: formspreeFormId, label: Formspree Form ID, widget: string, required: false }
+          - { name: podcastAudioUrl, label: Podcast Audio URL, widget: string }
+          - { name: podcastBlurb, label: Podcast Blurb, widget: text }
+          - name: artworkCredit
+            label: Artwork Credit
+            widget: object
+            fields:
+              - { name: label, label: Name, widget: string }
+              - { name: url, label: URL, widget: string }
+      - name: about
+        label: About Sheila
+        file: content/about.json
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - { name: quote, label: Quote, widget: text }
+          - { name: quoteAuthor, label: Quote Author, widget: string }
+          - { name: photo, label: Photo, widget: image }
+          - { name: bio, label: Bio, widget: markdown }
+          - { name: _note, label: Internal Note (not shown on site), widget: text, required: false }
+  - name: services
+    label: Services
+    files:
+      - name: services
+        label: Services
+        file: content/services.json
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro, widget: text }
+          - name: services
+            label: Services
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: description, label: Description, widget: text }
+              - { name: duration, label: Duration, widget: string }
+              - { name: price, label: Price, widget: string }
+              - { name: stripePaymentLink, label: Stripe Payment Link, widget: string, required: false }
+              - { name: active, label: Show on site, widget: boolean, default: false }
+          - { name: _note, label: Internal Note (not shown on site), widget: text, required: false }
+  - name: testimonials
+    label: Testimonials
+    files:
+      - name: testimonials
+        label: Testimonials
+        file: content/testimonials.json
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - name: testimonials
+            label: Testimonials
+            widget: list
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: author, label: Author, widget: string }
+              - { name: context, label: Context (e.g. "mother of 3 year old boy"), widget: string, required: false }
+  - name: faq
+    label: FAQ
+    files:
+      - name: faq
+        label: FAQ
+        file: content/faq.json
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - name: faq
+            label: Questions
+            widget: list
+            fields:
+              - { name: question, label: Question, widget: text }
+              - { name: answer, label: Answer, widget: markdown }

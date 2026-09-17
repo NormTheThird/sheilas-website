@@ -1,0 +1,39 @@
+{
+  "heading": "Services",
+  "intro": "Yoga and Ayurvedic practices tailored to you — individually, with a partner, or in a group.",
+  "services": [
+    {
+      "name": "Individual Yoga Lesson",
+      "description": "One-on-one yoga tailored to your specific areas of focus — sleep better, stress less, manage pain, improve focus, or simply get comfortable with yoga before joining group classes.",
+      "duration": "TODO(sheila): duration",
+      "price": "TODO(sheila): price",
+      "stripePaymentLink": "",
+      "active": false
+    },
+    {
+      "name": "Two-Person Yoga Lesson",
+      "description": "Try yoga with a partner or friend. Learn breathing practices, poses, and routines you can use together at home or at work.",
+      "duration": "TODO(sheila): duration",
+      "price": "TODO(sheila): price",
+      "stripePaymentLink": "",
+      "active": false
+    },
+    {
+      "name": "Ayurvedic Yoga Therapy Assessment",
+      "description": "A conversation between you and your essential self. We'll assess your constitution, relevant medical history, physical mobility, and lifestyle patterns, then select yoga postures, breathing exercises, meditations, routines, essential oils and other practices that are agreeable to you.",
+      "duration": "60–90 minutes",
+      "price": "TODO(sheila): price",
+      "stripePaymentLink": "",
+      "active": false
+    },
+    {
+      "name": "BodyTalk Access Balancing",
+      "description": "A relaxing, risk-free session of light touch and tapping over the head and heart. Many people experience benefit after the first visit, and you'll learn a balancing technique you can use daily on your own.",
+      "duration": "30–35 minutes",
+      "price": "TODO(sheila): price",
+      "stripePaymentLink": "",
+      "active": false
+    }
+  ],
+  "_note": "Services are seeded from the old site's FAQ. Each stays hidden (active: false) until Sheila confirms description, duration and price. Add a Stripe Payment Link URL to show a Book / Pay button."
+}

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# CDK / .NET
+infra/cdk.out/
+**/bin/
+**/obj/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

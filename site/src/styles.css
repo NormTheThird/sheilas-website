@@ -1,0 +1,667 @@
+/* Yes Yoga One — port of the original yes_yoga_one WordPress theme look.
+   Colors, type and section structure come from archive/wp-theme/
+   theme-content-style.css: aquamarine #7FFFD4 headings, warm-gray #8B8989
+   about section, skyline-backed contact section, dark #1f1f1f foot line. */
+
+:root {
+  --aqua: #7fffd4;
+  --gray-bg: #8b8989;
+  --nav-teal: #54899c;
+  --green: #89c436;
+  --blue: #75b6ce;
+  --text-gray: #74787a;
+  --foot-dark: #1f1f1f;
+  --max-width: 73.125rem; /* Bootstrap 3 container at 1200px+: 1170px */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  /* the original theme uses Raleway for body text too, at 14px/#333 */
+  font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  line-height: 1.6;
+  padding-top: 70px; /* fixed navbar */
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+}
+
+a {
+  color: var(--nav-teal);
+}
+
+a:hover,
+a:focus {
+  color: var(--green);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.row {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* keep grid children from overflowing on narrow screens (audio controls
+   and long URLs have wide intrinsic minimum sizes) */
+.row > * {
+  min-width: 0;
+}
+
+.about-section audio {
+  min-width: 0;
+}
+
+.community-links a {
+  overflow-wrap: anywhere;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 30;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* ===== Fixed navbar (original .main-menu) ===== */
+.main-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: #fff;
+  box-shadow: 0 0 2px 0 #cccccc;
+  min-height: 70px;
+}
+
+.menu-inner {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+/* dot separator between items, like the original nav-dot.png */
+.nav-list li + li {
+  background: url("/images/nav-dot.png") no-repeat left center;
+}
+
+.nav-list a {
+  display: block;
+  padding: 30px 25px 20px;
+  color: var(--nav-teal);
+  font-size: 16px;
+  /* the original declares weight 100 but never loads a thin font file, so
+     it actually renders at normal weight — match what it looks like */
+  font-weight: 400;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.nav-list a:hover,
+.nav-list a:focus {
+  color: var(--green);
+}
+
+.menu-toggle {
+  display: none;
+  margin: 10px 0;
+  padding: 9px 10px;
+  background: transparent;
+  border: 1px solid var(--nav-teal);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--nav-teal);
+  margin: 4px 0;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus {
+  background: var(--nav-teal);
+}
+
+.menu-toggle:hover .icon-bar,
+.menu-toggle:focus .icon-bar {
+  background: #fff;
+}
+
+@media (max-width: 47.99rem) {
+  .menu-inner {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 0.5rem;
+  }
+
+  .nav-list.open {
+    display: flex;
+  }
+
+  .nav-list li + li {
+    background: none;
+  }
+
+  .nav-list a {
+    padding: 8px 15px;
+    font-size: 17px;
+  }
+}
+
+/* ===== Logo banner (top of every page, as on the original) ===== */
+.logo-banner {
+  text-align: center;
+  padding: 65px 1rem;
+  background: #fff;
+}
+
+.logo-banner-img {
+  max-width: 100%;
+  width: 800px; /* natural size, as displayed on the original site */
+  height: auto;
+}
+
+/* ===== Section basics (original: centered, generous padding) ===== */
+section {
+  text-align: center;
+}
+
+.heading {
+  font-size: clamp(30px, 6vw, 60px);
+  line-height: 1;
+  color: var(--aqua);
+  font-weight: 300;
+  margin: 0 0 25px;
+}
+
+.page-heading {
+  font-size: 36px;
+  color: #333;
+  font-weight: 500;
+  margin: 0 0 30px;
+}
+
+.sub-heading {
+  color: var(--aqua);
+  font-size: 32px;
+  font-weight: 500;
+  margin: 20px 0 25px;
+}
+
+/* dashed aquamarine separator with a gap, like .separator_wrapper */
+.separator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  margin: 25px auto;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  border-bottom: 3px dashed var(--aqua);
+  height: 1px;
+  width: 210px;
+  max-width: 30vw;
+}
+
+/* ===== Welcome / About (gray) ===== */
+.about-section {
+  background: var(--gray-bg);
+  padding: 65px 0;
+}
+
+.about-section p,
+.about-section blockquote p {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 26px;
+  margin: 0 auto 28px;
+}
+
+.welcome-quote {
+  margin: 0;
+}
+
+.about-row {
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.about-photo {
+  width: auto;
+  max-width: 75%; /* as in the original theme's .imgCenter sizing */
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.about-section a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.about-section a:hover,
+.about-section a:focus {
+  color: var(--aqua);
+}
+
+.about-section audio {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.locations-intro {
+  margin-bottom: 0.5rem !important;
+}
+
+/* ===== Services (hidden until content is activated) ===== */
+.services-section {
+  padding: 65px 0;
+}
+
+.services-section .heading {
+  color: var(--blue);
+}
+
+.service-list {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 48rem) {
+  .service-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.service-card {
+  border: 1px solid #e3e3e3;
+  padding: 1.5rem;
+}
+
+.service-card h3 {
+  color: var(--blue);
+  font-weight: 400;
+  margin-top: 0;
+}
+
+.service-meta {
+  font-weight: 600;
+}
+
+/* ===== Contact (skyline background) ===== */
+.contact-section {
+  background: url("/images/skyline.jpg") center / cover no-repeat;
+  padding: 65px 0 0;
+}
+
+.tagline {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
+  margin: 0 auto 40px;
+}
+
+.contact-invite {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 300;
+  max-width: 36rem;
+  margin: 0 auto 40px;
+}
+
+.contact-invite a {
+  color: #fff;
+}
+
+.contact-invite a:hover,
+.contact-invite a:focus {
+  color: var(--aqua);
+}
+
+.contact-form {
+  max-width: 58rem;
+  margin: 0 auto;
+}
+
+.form-fields {
+  display: grid;
+  gap: 15px;
+  align-content: start;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  border: 1px solid #0e4da3;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.contact-form input {
+  height: 35px;
+}
+
+.contact-form textarea {
+  min-height: 207px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #5f5f5f;
+  background: #fff;
+  outline: none;
+}
+
+/* original .main-btn: aquamarine block button */
+.main-btn {
+  display: inline-block;
+  margin: 25px auto;
+  height: 60px;
+  width: 228px;
+  line-height: 60px;
+  padding: 0;
+  border: none;
+  font-family: "Raleway", sans-serif;
+  font-size: 24px;
+  color: var(--gray-bg);
+  background: var(--aqua);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main-btn:hover,
+.main-btn:focus {
+  color: #fff;
+  background: var(--green);
+}
+
+.contact-card {
+  padding: 30px 0 70px;
+}
+
+.contact-card-heading {
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.contact-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-card li {
+  font-weight: 300;
+  font-size: 19px;
+  line-height: 36px;
+  color: #fff;
+}
+
+.contact-card a {
+  color: #fff;
+}
+
+.contact-card a:hover,
+.contact-card a:focus {
+  color: var(--aqua);
+}
+
+.map-slot iframe {
+  display: block;
+  width: 100%;
+  height: 550px;
+  border: 0;
+}
+
+/* ===== Booking slot ===== */
+.booking-section {
+  padding: 65px 0;
+}
+
+.booking-section .heading {
+  color: var(--blue);
+}
+
+.booking-embed {
+  width: 100%;
+  min-height: 30rem;
+  border: 0;
+}
+
+/* ===== Testimonials ===== */
+.testimonials-section {
+  padding: 65px 0;
+}
+
+.testimonial {
+  max-width: 48.75rem; /* col-sm-8 of the 1170px container */
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+}
+
+.testimonial p {
+  font-size: 15px;
+  color: var(--text-gray);
+  line-height: 24px;
+  margin: 0 0 32px;
+}
+
+.testimonial small {
+  display: block;
+  font-size: 80%;
+  color: #777;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.testimonial small::before {
+  content: "— ";
+}
+
+/* ===== FAQ (accordion like the original Bootstrap panels) ===== */
+.faq-section {
+  padding: 65px 0;
+}
+
+.faq-accordion {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.faq-panel {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background: #fff;
+}
+
+.faq-panel summary {
+  padding: 24px 15px;
+  background: #f5f5f5;
+  color: var(--text-gray);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-panel summary::after {
+  content: " +";
+  color: var(--green);
+  font-weight: 700;
+}
+
+.faq-panel[open] summary::after {
+  content: " –";
+}
+
+.faq-panel summary:hover,
+.faq-panel summary:focus {
+  color: var(--green);
+}
+
+.faq-answer {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  font-size: 15px;
+  color: var(--text-gray);
+}
+
+.faq-answer p {
+  margin-top: 0;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: url("/images/footer-bg2.jpg") center / cover no-repeat;
+  text-align: center;
+  padding: 70px 0 0;
+}
+
+.social {
+  list-style: none;
+  margin: 0 0 70px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social img {
+  width: 40px;
+  height: 40px;
+}
+
+.foot-line {
+  background: var(--foot-dark);
+  padding: 9px 1rem;
+}
+
+.foot-line p {
+  color: #666;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 36px;
+  margin: 0;
+}
+
+.foot-line a {
+  color: #666;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.foot-line a:hover,
+.foot-line a:focus {
+  color: var(--aqua);
+}
+
+/* ===== Back to top ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 15px;
+  right: 10px;
+  z-index: 20;
+  text-decoration: none;
+  color: #fff;
+  background: var(--blue);
+  font-size: 18px;
+  padding: 0.25em 0.5em;
+}
+
+.back-to-top:hover,
+.back-to-top:focus {
+  background: var(--green);
+  color: #fff;
+}

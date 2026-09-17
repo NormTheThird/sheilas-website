@@ -1,0 +1,57 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "content/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  id-token: write # OIDC federation to AWS — no long-lived keys
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Build site
+        working-directory: site
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # Repo variables to set once the hosting stack exists (phase 2):
+    #   AWS_DEPLOY_ROLE_ARN — IAM role trusted for GitHub OIDC
+    #   S3_BUCKET           — HostingStack BucketName output
+    #   CLOUDFRONT_DISTRIBUTION_ID — HostingStack DistributionId output
+    if: vars.AWS_DEPLOY_ROLE_ARN != ''
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Sync to S3
+        run: aws s3 sync dist "s3://${{ vars.S3_BUCKET }}" --delete
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*"
