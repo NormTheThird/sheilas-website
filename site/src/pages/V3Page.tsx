@@ -13,8 +13,6 @@ const NAV = [
   { href: "#contact", label: "Contact" },
 ];
 
-const isTodo = (s: string) => s.startsWith("TODO");
-
 export function V3Page() {
   return (
     <div className="v3">
@@ -87,31 +85,12 @@ export function V3Page() {
           </div>
         </section>
 
-        {/* Services */}
+        {/* Services — heading and intro only; the service cards return when
+            Sheila finalizes offerings and prices */}
         <section id="services" className="v3-section v3-section-sage">
           <div className="v3-container">
             <h2 className="v3-h2">{services.heading}</h2>
             <p className="v3-section-intro">{services.intro}</p>
-            <ul className="v3-cards">
-              {services.services.map((s) => (
-                <li key={s.name} className="v3-card">
-                  <h3>{s.name}</h3>
-                  <p>{s.description}</p>
-                  {(!isTodo(s.duration) || !isTodo(s.price)) && (
-                    <p className="v3-card-meta">
-                      {!isTodo(s.duration) && s.duration}
-                      {!isTodo(s.duration) && !isTodo(s.price) && " · "}
-                      {!isTodo(s.price) && s.price}
-                    </p>
-                  )}
-                  {s.stripePaymentLink && (
-                    <a className="v3-btn v3-btn-solid" href={s.stripePaymentLink}>
-                      Book / Pay
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
 
