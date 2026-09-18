@@ -2,8 +2,10 @@ using Amazon.CDK;
 using Amazon.CDK.AWS.CertificateManager;
 using Amazon.CDK.AWS.CloudFront;
 using Amazon.CDK.AWS.CloudFront.Origins;
+using Amazon.CDK.AWS.IAM;
 using Amazon.CDK.AWS.S3;
 using Constructs;
+using System.Collections.Generic;
 
 namespace YesYogaOne.Infra;
 
@@ -80,8 +82,42 @@ public class HostingStack : Stack
             PriceClass = PriceClass.PRICE_CLASS_100,
         });
 
+        // GitHub Actions deploys via OIDC federation — no long-lived keys.
+        // The role is only assumable from this repo's main branch.
+        var githubOidc = new OpenIdConnectProvider(this, "GithubOidcProvider", new OpenIdConnectProviderProps
+        {
+            Url = "https://token.actions.githubusercontent.com",
+            ClientIds = ["sts.amazonaws.com"],
+        });
+
+        var deployRole = new Role(this, "GithubDeployRole", new RoleProps
+        {
+            RoleName = "YesYogaOne-GithubDeploy",
+            AssumedBy = new WebIdentityPrincipal(githubOidc.OpenIdConnectProviderArn, new Dictionary<string, object>
+            {
+                ["StringEquals"] = new Dictionary<string, string>
+                {
+                    ["token.actions.githubusercontent.com:aud"] = "sts.amazonaws.com",
+                },
+                ["StringLike"] = new Dictionary<string, string>
+                {
+                    ["token.actions.githubusercontent.com:sub"] = "repo:NormTheThird/sheilas-website:ref:refs/heads/main",
+                },
+            }),
+            Description = "Deploys the built site to S3 and invalidates CloudFront from GitHub Actions",
+        });
+
+        siteBucket.GrantReadWrite(deployRole);
+        siteBucket.GrantDelete(deployRole);
+        deployRole.AddToPolicy(new PolicyStatement(new PolicyStatementProps
+        {
+            Actions = ["cloudfront:CreateInvalidation"],
+            Resources = [$"arn:aws:cloudfront::{Account}:distribution/{distribution.DistributionId}"],
+        }));
+
         _ = new CfnOutput(this, "BucketName", new CfnOutputProps { Value = siteBucket.BucketName });
         _ = new CfnOutput(this, "DistributionId", new CfnOutputProps { Value = distribution.DistributionId });
         _ = new CfnOutput(this, "DistributionDomainName", new CfnOutputProps { Value = distribution.DistributionDomainName });
+        _ = new CfnOutput(this, "DeployRoleArn", new CfnOutputProps { Value = deployRole.RoleArn });
     }
 }
