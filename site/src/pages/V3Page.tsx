@@ -215,7 +215,7 @@ export function V3Page() {
           beautiful artwork!
         </p>
         <p>
-          © {new Date().getFullYear()} {site.legalName} · <a href="/">Classic site</a>
+          © {new Date().getFullYear()} {site.legalName} · <a href="/old/">Classic site</a>
         </p>
       </footer>
     </div>

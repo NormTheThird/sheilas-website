@@ -3,27 +3,28 @@ import { site } from "./content";
 
 // The original theme shows different menus on the home page and inner pages.
 // All links render in the same teal; green is only the hover color.
+// The whole ported theme lives under /old/ now that the redesign is "/".
 const HOME_NAV_LINKS = [
-  { href: "/#about", label: "Welcome" },
-  { href: "/#contact", label: "Contact Me" },
-  { href: "/#contact_map", label: "Locate Me" },
-  { href: "/testimonials/", label: "Testimonials" },
-  { href: "/faq/", label: "FAQ" },
+  { href: "/old/#about", label: "Welcome" },
+  { href: "/old/#contact", label: "Contact Me" },
+  { href: "/old/#contact_map", label: "Locate Me" },
+  { href: "/old/testimonials/", label: "Testimonials" },
+  { href: "/old/faq/", label: "FAQ" },
 ];
 
 const INNER_NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/#about", label: "Welcome" },
-  { href: "/#services", label: "Services" },
-  { href: "/#contact", label: "Contact Us" },
-  { href: "/#contact_map", label: "Locate Us" },
-  { href: "/testimonials/", label: "Testimonials" },
-  { href: "/faq/", label: "FAQ" },
+  { href: "/old/", label: "Home" },
+  { href: "/old/#about", label: "Welcome" },
+  { href: "/old/#services", label: "Services" },
+  { href: "/old/#contact", label: "Contact Us" },
+  { href: "/old/#contact_map", label: "Locate Us" },
+  { href: "/old/testimonials/", label: "Testimonials" },
+  { href: "/old/faq/", label: "FAQ" },
 ];
 
 function Navbar({ currentPath }: { currentPath: string }) {
   const [open, setOpen] = useState(false);
-  const links = currentPath === "/" ? HOME_NAV_LINKS : INNER_NAV_LINKS;
+  const links = currentPath === "/old/" ? HOME_NAV_LINKS : INNER_NAV_LINKS;
   return (
     <nav className="main-menu" aria-label="Main navigation">
       <div className="container menu-inner">
@@ -64,7 +65,7 @@ export function Layout({ currentPath, children }: { currentPath: string; childre
       </a>
       <Navbar currentPath={currentPath} />
       <section className="logo-banner">
-        <a href="/">
+        <a href="/old/">
           <img src="/images/logo.jpg" alt={`${site.name} — home`} className="logo-banner-img" />
         </a>
       </section>
