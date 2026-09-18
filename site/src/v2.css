@@ -162,18 +162,12 @@
   z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
-  padding: 0.55rem 1.5rem;
+  padding: 1.1rem 1.5rem;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--v2-line);
-}
-
-.v2-logo img {
-  height: 50px;
-  width: auto;
-  display: block;
 }
 
 .v2-nav {
@@ -232,7 +226,6 @@
 }
 
 /* flat editorial imagery — rectangular, no ornament */
-.v2-hero-photo img,
 .v2-about-photo img {
   width: 100%;
   max-width: 25rem;
@@ -240,6 +233,14 @@
   margin: 0 auto;
   object-fit: cover;
   aspect-ratio: 4 / 5;
+}
+
+.v2-hero-logo img {
+  width: 100%;
+  max-width: 24rem;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 /* ===== Quote band ===== */

@@ -1,4 +1,4 @@
-import { about, faq, services, site, testimonials } from "../content";
+import { about, services, site } from "../content";
 import { ContactForm } from "../ContactForm";
 import { Markdown } from "../Markdown";
 import "../v2.css";
@@ -10,27 +10,15 @@ import "../v2.css";
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];
 
 const isTodo = (s: string) => s.startsWith("TODO");
 
-// Short quotes that read well as cards; the featured quote stands alone.
-const FEATURED_AUTHOR = "Dorothy";
-const CARD_AUTHORS = ["Julie", "Amber", "Sam"];
-
 export function V2Page() {
-  const featured = testimonials.testimonials.find((t) => t.author === FEATURED_AUTHOR);
-  const cards = testimonials.testimonials.filter((t) => CARD_AUTHORS.includes(t.author));
-
   return (
     <div className="v2">
       <header className="v2-header">
-        <a className="v2-logo" href="#top">
-          <img src="/images/logo.jpg" alt={`${site.name} — top`} />
-        </a>
         <nav aria-label="Main navigation">
           <ul className="v2-nav">
             {NAV.map((l) => (
@@ -63,8 +51,8 @@ export function V2Page() {
                 </a>
               </div>
             </div>
-            <div className="v2-hero-photo">
-              <img src={about.photo} alt="Sheila Norman" />
+            <div className="v2-hero-logo">
+              <img src="/images/logo.jpg" alt={site.name} />
             </div>
           </div>
         </section>
@@ -124,51 +112,6 @@ export function V2Page() {
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section id="testimonials" className="v2-section">
-          <div className="v2-container">
-            <h2 className="v2-h2">{testimonials.heading}</h2>
-            {featured && (
-              <blockquote className="v2-featured-quote">
-                <p>“{featured.quote}”</p>
-                <cite>
-                  — {featured.author}
-                  {featured.context ? `, ${featured.context}` : ""}
-                </cite>
-              </blockquote>
-            )}
-            <ul className="v2-cards v2-quote-cards">
-              {cards.map((t) => (
-                <li key={t.author} className="v2-card">
-                  <p>“{t.quote}”</p>
-                  <cite>
-                    — {t.author}
-                    {t.context ? `, ${t.context}` : ""}
-                  </cite>
-                </li>
-              ))}
-            </ul>
-            <p className="v2-more-link">
-              <a href="/testimonials/">Read all testimonials →</a>
-            </p>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section id="faq" className="v2-section v2-section-sage">
-          <div className="v2-container v2-narrow">
-            <h2 className="v2-h2">{faq.heading}</h2>
-            {faq.faq.map((item) => (
-              <details key={item.question} className="v2-faq">
-                <summary>{item.question}</summary>
-                <div className="v2-faq-answer">
-                  <Markdown text={item.answer} />
-                </div>
-              </details>
-            ))}
           </div>
         </section>
 
