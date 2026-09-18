@@ -99,9 +99,15 @@ public class HostingStack : Stack
                 {
                     ["token.actions.githubusercontent.com:aud"] = "sts.amazonaws.com",
                 },
-                ["StringLike"] = new Dictionary<string, string>
+                // GitHub is migrating OIDC sub claims to an immutable-ID format
+                // (owner@id/repo@id); accept both spellings, IDs pinned.
+                ["StringLike"] = new Dictionary<string, object>
                 {
-                    ["token.actions.githubusercontent.com:sub"] = "repo:NormTheThird/sheilas-website:ref:refs/heads/main",
+                    ["token.actions.githubusercontent.com:sub"] = new[]
+                    {
+                        "repo:NormTheThird/sheilas-website:ref:refs/heads/main",
+                        "repo:NormTheThird@5905828/sheilas-website@1375075332:ref:refs/heads/main",
+                    },
                 },
             }),
             Description = "Deploys the built site to S3 and invalidates CloudFront from GitHub Actions",

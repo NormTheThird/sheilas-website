@@ -1,0 +1,8 @@
+{
+  "YesYogaOne-Hosting": {
+    "DeployRoleArn": "arn:aws:iam::722855777909:role/YesYogaOne-GithubDeploy",
+    "BucketName": "yesyogaone-hosting-sitebucket397a1860-pk4bj0469gap",
+    "DistributionId": "E1JC63PHMH3JFX",
+    "DistributionDomainName": "d3mhq8iu4z4wna.cloudfront.net"
+  }
+}
