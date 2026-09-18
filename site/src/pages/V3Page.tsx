@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { about, faq, services, site, testimonials } from "../content";
 import { ContactForm } from "../ContactForm";
 import { Markdown } from "../Markdown";
@@ -14,6 +15,42 @@ const NAV = [
   { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];
+
+function TestimonialCarousel() {
+  const items = testimonials.testimonials;
+  const [index, setIndex] = useState(0);
+  const t = items[index];
+  return (
+    <div className="v3-carousel">
+      <blockquote className="v3-carousel-quote" aria-live="polite">
+        <p>“{t.quote}”</p>
+        <cite>
+          — {t.author}
+          {t.context ? `, ${t.context}` : ""}
+        </cite>
+      </blockquote>
+      <div className="v3-carousel-controls">
+        <button
+          type="button"
+          aria-label="Previous testimonial"
+          onClick={() => setIndex((index - 1 + items.length) % items.length)}
+        >
+          ←
+        </button>
+        <span className="v3-carousel-count">
+          {index + 1} / {items.length}
+        </span>
+        <button
+          type="button"
+          aria-label="Next testimonial"
+          onClick={() => setIndex((index + 1) % items.length)}
+        >
+          →
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function V3Page() {
   return (
@@ -100,17 +137,7 @@ export function V3Page() {
         <section id="testimonials" className="v3-section">
           <div className="v3-container v3-narrow">
             <h2 className="v3-h2">{testimonials.heading}</h2>
-            <ul className="v3-cards v3-testimonial-list">
-              {testimonials.testimonials.map((t) => (
-                <li key={t.author + t.quote.slice(0, 20)} className="v3-card">
-                  <p>“{t.quote}”</p>
-                  <cite>
-                    — {t.author}
-                    {t.context ? `, ${t.context}` : ""}
-                  </cite>
-                </li>
-              ))}
-            </ul>
+            <TestimonialCarousel />
           </div>
         </section>
 

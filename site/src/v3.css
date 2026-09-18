@@ -370,9 +370,63 @@
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 }
 
-/* full testimonial list: one readable column */
-.v3-testimonial-list {
-  grid-template-columns: 1fr;
+/* testimonial carousel: one quote at a time with prev/next controls */
+.v3-carousel-quote {
+  margin: 0;
+  background: var(--v3-sage-wash);
+  border-radius: 24px;
+  padding: 2.25rem 2.5rem;
+}
+
+.v3-carousel-quote p {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.v3-carousel-quote cite {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--v3-sage-deep);
+}
+
+.v3-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.v3-carousel-controls button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--v3-sage-deep);
+  background: var(--v3-white);
+  color: var(--v3-sage-deep);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.v3-carousel-controls button:hover,
+.v3-carousel-controls button:focus {
+  background: var(--v3-sage-deep);
+  color: #fff;
+}
+
+.v3-carousel-count {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--v3-ink-soft);
+  min-width: 3.5rem;
+  text-align: center;
 }
 
 .v3-more-link {
