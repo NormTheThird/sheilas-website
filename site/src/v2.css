@@ -113,8 +113,10 @@
   margin-bottom: 2.5rem;
 }
 
-/* ===== Buttons: thin rectangular outline, letter-spaced uppercase ===== */
-.v2-btn {
+/* ===== Buttons: thin rectangular outline, letter-spaced uppercase =====
+   Selectors are prefixed with .v2 so they outrank the `.v2 a` link rule
+   on anchor buttons. */
+.v2 .v2-btn {
   display: inline-block;
   padding: 0.85rem 2.2rem;
   border-radius: 0;
@@ -132,25 +134,25 @@
     border-color 0.2s;
 }
 
-.v2-btn-solid {
+.v2 .v2-btn-solid {
   background: var(--v2-ink);
   color: #fff;
 }
 
-.v2-btn-solid:hover,
-.v2-btn-solid:focus {
+.v2 .v2-btn-solid:hover,
+.v2 .v2-btn-solid:focus {
   background: var(--v2-sage-deep);
   border-color: var(--v2-sage-deep);
   color: #fff;
 }
 
-.v2-btn-ghost {
+.v2 .v2-btn-ghost {
   background: transparent;
   color: var(--v2-ink);
 }
 
-.v2-btn-ghost:hover,
-.v2-btn-ghost:focus {
+.v2 .v2-btn-ghost:hover,
+.v2 .v2-btn-ghost:focus {
   background: var(--v2-ink);
   color: #fff;
 }

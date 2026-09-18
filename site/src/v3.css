@@ -103,8 +103,10 @@
   margin-bottom: 2.25rem;
 }
 
-/* ===== Buttons ===== */
-.v3-btn {
+/* ===== Buttons =====
+   Selectors are prefixed with .v3 so they outrank the `.v3 a` link rule
+   on anchor buttons. */
+.v3 .v3-btn {
   display: inline-block;
   padding: 0.75rem 1.7rem;
   border-radius: 999px;
@@ -117,25 +119,25 @@
     color 0.2s;
 }
 
-.v3-btn-solid {
+.v3 .v3-btn-solid {
   background: var(--v3-sage-deep);
   color: #fff;
 }
 
-.v3-btn-solid:hover,
-.v3-btn-solid:focus {
+.v3 .v3-btn-solid:hover,
+.v3 .v3-btn-solid:focus {
   background: var(--v3-ink);
   border-color: var(--v3-ink);
   color: #fff;
 }
 
-.v3-btn-ghost {
+.v3 .v3-btn-ghost {
   background: transparent;
   color: var(--v3-sage-deep);
 }
 
-.v3-btn-ghost:hover,
-.v3-btn-ghost:focus {
+.v3 .v3-btn-ghost:hover,
+.v3 .v3-btn-ghost:focus {
   background: var(--v3-sage-wash);
   color: var(--v3-sage-deep);
 }
