@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage";
 import { TestimonialsPage } from "./pages/TestimonialsPage";
 import { FaqPage } from "./pages/FaqPage";
 import { V2Page } from "./pages/V2Page";
+import { V3Page } from "./pages/V3Page";
 
 export interface Route {
   path: string;
@@ -43,6 +44,14 @@ export const routes: Route[] = [
     description:
       "Sheila Norman is an Ayurvedic Yoga Therapist, BodyTalk Access Technician and yin yoga teacher offering individual and group yoga lessons.",
     element: () => <V2Page />,
+    standalone: true,
+  },
+  {
+    path: "/v3/",
+    title: `${site.name} – Ayurvedic Yoga Therapy | ${site.locationLine}`,
+    description:
+      "Sheila Norman is an Ayurvedic Yoga Therapist, BodyTalk Access Technician and yin yoga teacher offering individual and group yoga lessons.",
+    element: () => <V3Page />,
     standalone: true,
   },
 ];

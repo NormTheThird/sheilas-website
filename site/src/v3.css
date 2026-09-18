@@ -1,0 +1,562 @@
+/* /v3 — modern wellness redesign. Warm natural palette (cream, sand, clay,
+   sage), Fraunces serif display type, Nunito Sans body, organic arches and
+   soft rounded cards. Every rule is scoped under .v3 so the classic pages
+   are unaffected. */
+
+.v3 {
+  --v3-cream: #faf6ef;
+  --v3-sand: #f2e9db;
+  --v3-clay: #c4703f;
+  --v3-clay-deep: #a2552a;
+  --v3-sage: #e7ebdf;
+  --v3-sage-deep: #5f6f52;
+  --v3-ink: #37322a;
+  --v3-ink-soft: #6b6357;
+  --v3-max: 72rem;
+
+  font-family: "Nunito Sans", "Open Sans", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--v3-ink);
+  background: var(--v3-cream);
+  text-align: left;
+}
+
+.v3 ::selection {
+  background: var(--v3-clay);
+  color: #fff;
+}
+
+/* the classic stylesheet centers all <section>s globally — undo inside v3 */
+.v3 section {
+  text-align: left;
+}
+
+.v3 a {
+  color: var(--v3-clay-deep);
+  text-decoration: none;
+}
+
+.v3 a:hover,
+.v3 a:focus {
+  color: var(--v3-sage-deep);
+}
+
+.v3-container {
+  max-width: var(--v3-max);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.v3-narrow {
+  max-width: 50rem;
+}
+
+/* ===== Type ===== */
+.v3-display,
+.v3-h2,
+.v3 h3,
+.v3-wordmark,
+.v3-wordmark-footer {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.v3-display em,
+.v3-h2 em,
+.v3-wordmark em,
+.v3-wordmark-footer em {
+  font-style: italic;
+  color: var(--v3-clay);
+}
+
+.v3-display {
+  font-size: clamp(2.6rem, 7vw, 4.75rem);
+  margin: 0.5rem 0 1.25rem;
+}
+
+.v3-h2 {
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  margin: 0.25rem 0 1.25rem;
+}
+
+.v3 h3 {
+  font-size: 1.35rem;
+  margin: 0 0 0.6rem;
+}
+
+.v3-eyebrow {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v3-sage-deep);
+  margin: 0;
+}
+
+.v3-lead {
+  font-size: 1.15rem;
+  color: var(--v3-ink-soft);
+  max-width: 34rem;
+}
+
+.v3-section-intro {
+  color: var(--v3-ink-soft);
+  max-width: 40rem;
+  margin-bottom: 2.25rem;
+}
+
+/* ===== Buttons ===== */
+.v3-btn {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 2px solid var(--v3-clay);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.v3-btn-solid {
+  background: var(--v3-clay);
+  color: #fff;
+}
+
+.v3-btn-solid:hover,
+.v3-btn-solid:focus {
+  background: var(--v3-clay-deep);
+  border-color: var(--v3-clay-deep);
+  color: #fff;
+}
+
+.v3-btn-ghost {
+  background: transparent;
+  color: var(--v3-clay-deep);
+}
+
+.v3-btn-ghost:hover,
+.v3-btn-ghost:focus {
+  background: var(--v3-clay);
+  color: #fff;
+}
+
+/* ===== Header ===== */
+.v3-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.5rem;
+  background: rgba(250, 246, 239, 0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(55, 50, 42, 0.08);
+}
+
+.v3-wordmark {
+  font-size: 1.4rem;
+  color: var(--v3-ink);
+}
+
+.v3-nav {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.v3-nav a {
+  font-weight: 600;
+  color: var(--v3-ink);
+}
+
+.v3-nav a:hover,
+.v3-nav a:focus {
+  color: var(--v3-clay);
+}
+
+@media (max-width: 47.99rem) {
+  .v3-nav {
+    display: none;
+  }
+}
+
+/* ===== Hero ===== */
+.v3-hero {
+  padding: 4.5rem 0 5rem;
+  background:
+    radial-gradient(38rem 24rem at 85% 8rem, rgba(196, 112, 63, 0.14), transparent 70%),
+    radial-gradient(30rem 22rem at 8% 90%, rgba(95, 111, 82, 0.12), transparent 70%),
+    var(--v3-cream);
+}
+
+.v3-hero-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 48rem) {
+  .v3-hero-grid {
+    grid-template-columns: 7fr 5fr;
+  }
+}
+
+.v3-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* arch-shaped portrait, a signature organic-wellness shape */
+.v3-hero-photo img,
+.v3-about-photo img {
+  width: 100%;
+  max-width: 24rem;
+  display: block;
+  margin: 0 auto;
+  border-radius: 999px 999px 28px 28px;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+}
+
+.v3-hero-photo img {
+  box-shadow: 0 24px 60px -24px rgba(55, 50, 42, 0.4);
+}
+
+/* ===== Quote band ===== */
+.v3-quote-band {
+  background: var(--v3-sage-deep);
+  color: #f4f6ef;
+  padding: 3.5rem 0;
+}
+
+.v3-quote-band blockquote {
+  margin: 0 auto;
+  max-width: 46rem;
+  text-align: center;
+}
+
+.v3-quote-band p {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  line-height: 1.55;
+  margin: 0 0 1rem;
+}
+
+.v3-quote-band cite {
+  font-style: normal;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* ===== Sections ===== */
+.v3-section {
+  padding: 5rem 0;
+}
+
+.v3-section-sage {
+  background: var(--v3-sage);
+}
+
+.v3-section-sand {
+  background: var(--v3-sand);
+}
+
+.v3-section-clay {
+  background: linear-gradient(180deg, var(--v3-cream), #f6e3d2);
+}
+
+/* ===== About ===== */
+.v3-about-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (min-width: 48rem) {
+  .v3-about-grid {
+    grid-template-columns: 5fr 7fr;
+  }
+}
+
+.v3-bio p {
+  margin: 0 0 1.2rem;
+  color: var(--v3-ink-soft);
+}
+
+.v3-bio p:first-child {
+  font-size: 1.1rem;
+  color: var(--v3-ink);
+}
+
+.v3-podcast {
+  margin-top: 2rem;
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 12px 32px -20px rgba(55, 50, 42, 0.35);
+}
+
+.v3-podcast-label {
+  font-size: 0.95rem;
+  color: var(--v3-ink-soft);
+  margin: 0 0 0.75rem;
+}
+
+.v3-podcast audio {
+  width: 100%;
+}
+
+/* ===== Cards ===== */
+.v3-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .v3-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.v3-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 1.75rem;
+  box-shadow: 0 16px 40px -28px rgba(55, 50, 42, 0.4);
+}
+
+.v3-card p {
+  color: var(--v3-ink-soft);
+  margin: 0 0 1rem;
+}
+
+.v3-card-meta {
+  font-weight: 700;
+  color: var(--v3-ink);
+}
+
+.v3-card-link {
+  font-weight: 700;
+}
+
+.v3-card cite {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--v3-sage-deep);
+}
+
+/* ===== Testimonials ===== */
+.v3-featured-quote {
+  margin: 0 0 2.5rem;
+  padding: 2.5rem 2.75rem;
+  background: var(--v3-sand);
+  border-radius: 28px;
+}
+
+.v3-featured-quote p {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.v3-featured-quote cite {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--v3-clay-deep);
+}
+
+.v3-quote-cards {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.v3-more-link {
+  margin-top: 2rem;
+  font-weight: 700;
+}
+
+/* ===== FAQ ===== */
+.v3-faq {
+  background: #fff;
+  border-radius: 18px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 10px 28px -22px rgba(55, 50, 42, 0.35);
+}
+
+.v3-faq summary {
+  padding: 1.15rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.v3-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.v3-faq summary::after {
+  content: "+";
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.4rem;
+  color: var(--v3-clay);
+  flex-shrink: 0;
+}
+
+.v3-faq[open] summary::after {
+  content: "–";
+}
+
+.v3-faq-answer {
+  padding: 0 1.5rem 1.25rem;
+  color: var(--v3-ink-soft);
+}
+
+.v3-faq-answer p {
+  margin-top: 0;
+}
+
+/* ===== Contact ===== */
+.v3-contact-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 48rem) {
+  .v3-contact-grid {
+    grid-template-columns: 5fr 7fr;
+  }
+}
+
+.v3-contact-details ul {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.v3-contact-details li {
+  margin-bottom: 0.4rem;
+}
+
+.v3-contact-details h3 {
+  margin-top: 1.5rem;
+}
+
+.v3-contact-details h3:first-child {
+  margin-top: 0;
+}
+
+/* restyle the shared form inside v3 */
+.v3 .contact-form .row {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 48rem) {
+  .v3 .contact-form .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.v3 .contact-form .form-fields {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.v3 .contact-form input,
+.v3 .contact-form textarea {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--v3-ink);
+  background: #fff;
+  border: 1.5px solid rgba(55, 50, 42, 0.18);
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.v3 .contact-form textarea {
+  min-height: 11rem;
+  resize: vertical;
+}
+
+.v3 .contact-form input:focus,
+.v3 .contact-form textarea:focus {
+  outline: none;
+  border-color: var(--v3-clay);
+}
+
+.v3 .contact-form input::placeholder,
+.v3 .contact-form textarea::placeholder {
+  color: var(--v3-ink-soft);
+  opacity: 1;
+}
+
+.v3 .contact-form button {
+  margin-top: 1.25rem;
+}
+
+.v3-map {
+  margin-top: 3rem;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px -28px rgba(55, 50, 42, 0.4);
+}
+
+.v3-map iframe {
+  display: block;
+  width: 100%;
+  height: 24rem;
+  border: 0;
+}
+
+/* ===== Footer ===== */
+.v3-footer {
+  background: var(--v3-ink);
+  color: #cfc8bc;
+  text-align: center;
+  padding: 3.5rem 1.25rem;
+}
+
+.v3-footer a {
+  color: #e8ddca;
+}
+
+.v3-footer a:hover,
+.v3-footer a:focus {
+  color: #fff;
+}
+
+.v3-wordmark-footer {
+  font-size: 1.6rem;
+  color: #f4efe6;
+  margin: 0 0 1rem;
+}
+
+.v3-footer p {
+  margin: 0.35rem 0;
+  font-size: 0.95rem;
+}
