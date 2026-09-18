@@ -256,12 +256,12 @@ section {
   margin: 20px 0 25px;
 }
 
-/* dashed aquamarine separator with a gap, like .separator_wrapper */
+/* dashed aquamarine separator: the original's two 210px segments sit flush,
+   reading as one continuous dashed line */
 .separator {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 60px;
   margin: 25px auto;
 }
 
@@ -271,7 +271,7 @@ section {
   border-bottom: 3px dashed var(--aqua);
   height: 1px;
   width: 210px;
-  max-width: 30vw;
+  max-width: 40vw;
 }
 
 /* ===== Welcome / About (gray) ===== */
@@ -420,6 +420,12 @@ section {
   box-shadow: none;
 }
 
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #666;
+  opacity: 1;
+}
+
 .contact-form input {
   height: 35px;
 }
@@ -445,6 +451,7 @@ section {
   line-height: 60px;
   padding: 0;
   border: none;
+  border-radius: 6px;
   font-family: "Raleway", sans-serif;
   font-size: 24px;
   color: var(--gray-bg);

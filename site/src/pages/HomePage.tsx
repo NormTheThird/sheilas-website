@@ -36,12 +36,28 @@ function ContactForm() {
     >
       <div className="row">
         <div className="col-half form-fields">
-          <input type="text" name="name" placeholder="Name *" required aria-label="Name" />
-          <input type="email" name="email" placeholder="Email *" required aria-label="Email" />
-          <input type="tel" name="phone" placeholder="Phone" aria-label="Phone" />
+          <input type="text" name="name" placeholder="Your name" required aria-label="Your name" />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email address"
+            required
+            aria-label="Your email address"
+          />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Your phone number"
+            aria-label="Your phone number"
+          />
         </div>
         <div className="col-half">
-          <textarea name="message" placeholder="Message *" required aria-label="Message" />
+          <textarea
+            name="message"
+            placeholder="Your message"
+            required
+            aria-label="Your message"
+          />
         </div>
       </div>
       <button type="submit" className="main-btn">
@@ -143,6 +159,7 @@ export function HomePage() {
           <Separator />
           <p className="tagline">{site.tagline}</p>
           <ContactForm />
+          <Separator />
           <div className="contact-card">
             <h3 className="contact-card-heading">{site.name}</h3>
             <ul>
