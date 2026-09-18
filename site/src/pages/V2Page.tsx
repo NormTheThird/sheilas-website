@@ -128,16 +128,21 @@ export function V2Page() {
                   <br />
                   <a href={`mailto:${site.email}`}>{site.email}</a>
                 </p>
-                <h3>Locations in the community</h3>
-                <ul>
-                  {site.communityLocations.map((loc) => (
-                    <li key={loc.url}>
-                      <a href={loc.url} rel="noopener">
-                        {loc.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                {/* hidden while empty; returns when locations are added via the CMS */}
+                {site.communityLocations.length > 0 && (
+                  <>
+                    <h3>Locations in the community</h3>
+                    <ul>
+                      {site.communityLocations.map((loc) => (
+                        <li key={loc.url}>
+                          <a href={loc.url} rel="noopener">
+                            {loc.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
                 {site.social.map(
                   (s) =>
                     s.url !== "#" && (

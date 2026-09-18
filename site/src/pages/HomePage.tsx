@@ -36,17 +36,22 @@ export function HomePage() {
                 Your browser does not support the audio element.{" "}
                 <a href={site.podcastAudioUrl}>Download the interview</a>.
               </audio>
-              <p className="locations-intro">Locations in the community:</p>
-              <p className="community-links">
-                {site.communityLocations.map((loc) => (
-                  <span key={loc.url}>
-                    <a href={loc.url} rel="noopener">
-                      {loc.url.replace(/^https?:\/\//, "")}
-                    </a>
-                    <br />
-                  </span>
-                ))}
-              </p>
+              {/* hidden while empty; returns when locations are added via the CMS */}
+              {site.communityLocations.length > 0 && (
+                <>
+                  <p className="locations-intro">Locations in the community:</p>
+                  <p className="community-links">
+                    {site.communityLocations.map((loc) => (
+                      <span key={loc.url}>
+                        <a href={loc.url} rel="noopener">
+                          {loc.url.replace(/^https?:\/\//, "")}
+                        </a>
+                        <br />
+                      </span>
+                    ))}
+                  </p>
+                </>
+              )}
               <p>PH: {site.phone.replace(/\D/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}</p>
             </div>
           </div>

@@ -9,12 +9,8 @@
     { "label": "Facebook", "url": "https://www.facebook.com/yesyogaone/" },
     { "label": "LinkedIn", "url": "#" }
   ],
-  "communityLocations": [
-    { "label": "Bloom — learning & play environment for children", "url": "http://www.bloomsf.com" },
-    { "label": "Touchmark Health & Fitness Club", "url": "http://www.touchmark.com/health_club" },
-    { "label": "Sioux Falls VA Medical Center", "url": "https://www.siouxfalls.va.gov" }
-  ],
-  "mapEmbedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s43.5305245,-96.7507693!6i13",
+  "communityLocations": [],
+  "mapEmbedUrl": "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sCorpus+Christi,+TX!6i12",
   "bookingEmbedUrl": "",
   "formspreeFormId": "",
   "podcastAudioUrl": "/audio/PodCast-Sheila-Norman.mp3",
