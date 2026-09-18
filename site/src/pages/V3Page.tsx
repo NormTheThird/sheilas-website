@@ -1,4 +1,4 @@
-import { about, services, site } from "../content";
+import { about, faq, services, site, testimonials } from "../content";
 import { ContactForm } from "../ContactForm";
 import { Markdown } from "../Markdown";
 import "../v3.css";
@@ -10,6 +10,8 @@ import "../v3.css";
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
+  { href: "#testimonials", label: "Testimonials" },
+  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -91,6 +93,39 @@ export function V3Page() {
           <div className="v3-container">
             <h2 className="v3-h2">{services.heading}</h2>
             <p className="v3-section-intro">{services.intro}</p>
+          </div>
+        </section>
+
+        {/* Testimonials — the original site's full set */}
+        <section id="testimonials" className="v3-section">
+          <div className="v3-container v3-narrow">
+            <h2 className="v3-h2">{testimonials.heading}</h2>
+            <ul className="v3-cards v3-testimonial-list">
+              {testimonials.testimonials.map((t) => (
+                <li key={t.author + t.quote.slice(0, 20)} className="v3-card">
+                  <p>“{t.quote}”</p>
+                  <cite>
+                    — {t.author}
+                    {t.context ? `, ${t.context}` : ""}
+                  </cite>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* FAQ — the original site's full set */}
+        <section id="faq" className="v3-section v3-section-sage">
+          <div className="v3-container v3-narrow">
+            <h2 className="v3-h2">{faq.heading}</h2>
+            {faq.faq.map((item) => (
+              <details key={item.question} className="v3-faq">
+                <summary>{item.question}</summary>
+                <div className="v3-faq-answer">
+                  <Markdown text={item.answer} />
+                </div>
+              </details>
+            ))}
           </div>
         </section>
 
