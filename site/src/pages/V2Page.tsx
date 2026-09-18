@@ -3,15 +3,16 @@ import { ContactForm } from "../ContactForm";
 import { Markdown } from "../Markdown";
 import "../v2.css";
 
-// /v2 — modern wellness redesign preview. Same content as the classic site,
-// reimagined with warm natural colors (terracotta, sage, cream), serif
-// display type and organic shapes. The classic pages are untouched.
+// /v2 — modern wellness redesign preview. Same content and logo as the
+// classic site, restyled light and minimal: white base, sage accents,
+// Fraunces serif display type. The classic pages are untouched.
 
 const NAV = [
   { href: "#about", label: "About" },
-  { href: "#offerings", label: "Offerings" },
+  { href: "#services", label: "Services" },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#faq", label: "FAQ" },
+  { href: "#contact", label: "Contact" },
 ];
 
 const isTodo = (s: string) => s.startsWith("TODO");
@@ -27,8 +28,8 @@ export function V2Page() {
   return (
     <div className="v2">
       <header className="v2-header">
-        <a className="v2-wordmark" href="#top">
-          Yes <em>Yoga</em> One
+        <a className="v2-logo" href="#top">
+          <img src="/images/logo.jpg" alt={`${site.name} — top`} />
         </a>
         <nav aria-label="Main navigation">
           <ul className="v2-nav">
@@ -39,9 +40,6 @@ export function V2Page() {
             ))}
           </ul>
         </nav>
-        <a className="v2-btn v2-btn-solid v2-header-cta" href="#contact">
-          Get in touch
-        </a>
       </header>
 
       <main id="top">
@@ -55,10 +53,7 @@ export function V2Page() {
                 <br />
                 <em>Imagine.</em> Euphoria.
               </h1>
-              <p className="v2-lead">
-                Yoga and Ayurvedic practices tailored to you — individually, with a partner, or
-                in a group. The light in me honors the light in you.
-              </p>
+              <p className="v2-lead">The light in me honors the light in you! Namaste!</p>
               <div className="v2-cta-row">
                 <a className="v2-btn v2-btn-solid" href="#contact">
                   Book a session
@@ -91,13 +86,10 @@ export function V2Page() {
               <img src={about.photo} alt="Sheila Norman" />
             </div>
             <div>
-              <p className="v2-eyebrow">{about.heading}</p>
-              <h2 className="v2-h2">
-                Guided by nature's <em>cycles</em>, tailored to yours
-              </h2>
+              <h2 className="v2-h2">{about.heading}</h2>
               <Markdown text={about.bio} className="v2-bio" />
               <div className="v2-podcast">
-                <p className="v2-podcast-label">Listen · {site.podcastBlurb}</p>
+                <p className="v2-podcast-label">{site.podcastBlurb}</p>
                 <audio controls preload="none" src={site.podcastAudioUrl}>
                   Your browser does not support the audio element.{" "}
                   <a href={site.podcastAudioUrl}>Download the interview</a>.
@@ -107,13 +99,10 @@ export function V2Page() {
           </div>
         </section>
 
-        {/* Offerings */}
-        <section id="offerings" className="v2-section v2-section-sage">
+        {/* Services */}
+        <section id="services" className="v2-section v2-section-sage">
           <div className="v2-container">
-            <p className="v2-eyebrow">{services.heading}</p>
-            <h2 className="v2-h2">
-              Ways to <em>practice</em> together
-            </h2>
+            <h2 className="v2-h2">{services.heading}</h2>
             <p className="v2-section-intro">{services.intro}</p>
             <ul className="v2-cards">
               {services.services.map((s) => (
@@ -127,13 +116,9 @@ export function V2Page() {
                       {!isTodo(s.price) && s.price}
                     </p>
                   )}
-                  {s.stripePaymentLink ? (
+                  {s.stripePaymentLink && (
                     <a className="v2-btn v2-btn-solid" href={s.stripePaymentLink}>
                       Book / Pay
-                    </a>
-                  ) : (
-                    <a className="v2-card-link" href="#contact">
-                      Ask about this →
                     </a>
                   )}
                 </li>
@@ -145,10 +130,7 @@ export function V2Page() {
         {/* Testimonials */}
         <section id="testimonials" className="v2-section">
           <div className="v2-container">
-            <p className="v2-eyebrow">{testimonials.heading}</p>
-            <h2 className="v2-h2">
-              Kind words from <em>students</em>
-            </h2>
+            <h2 className="v2-h2">{testimonials.heading}</h2>
             {featured && (
               <blockquote className="v2-featured-quote">
                 <p>“{featured.quote}”</p>
@@ -176,12 +158,9 @@ export function V2Page() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="v2-section v2-section-sand">
+        <section id="faq" className="v2-section v2-section-sage">
           <div className="v2-container v2-narrow">
-            <p className="v2-eyebrow">Questions</p>
-            <h2 className="v2-h2">
-              Frequently asked, <em>gently</em> answered
-            </h2>
+            <h2 className="v2-h2">{faq.heading}</h2>
             {faq.faq.map((item) => (
               <details key={item.question} className="v2-faq">
                 <summary>{item.question}</summary>
@@ -194,12 +173,9 @@ export function V2Page() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="v2-section v2-section-clay">
+        <section id="contact" className="v2-section">
           <div className="v2-container">
-            <p className="v2-eyebrow">Contact</p>
-            <h2 className="v2-h2">
-              Let's get in <em>touch</em>
-            </h2>
+            <h2 className="v2-h2">let's get in touch</h2>
             <p className="v2-section-intro">{site.tagline}</p>
             <div className="v2-contact-grid">
               <div className="v2-contact-details">
@@ -209,7 +185,7 @@ export function V2Page() {
                   <br />
                   <a href={`mailto:${site.email}`}>{site.email}</a>
                 </p>
-                <h3>In the community</h3>
+                <h3>Locations in the community</h3>
                 <ul>
                   {site.communityLocations.map((loc) => (
                     <li key={loc.url}>
@@ -224,7 +200,7 @@ export function V2Page() {
                     s.url !== "#" && (
                       <p key={s.label}>
                         <a href={s.url} rel="noopener">
-                          Find us on {s.label}
+                          {s.label}
                         </a>
                       </p>
                     ),
@@ -244,12 +220,10 @@ export function V2Page() {
       </main>
 
       <footer className="v2-footer">
-        <p className="v2-wordmark-footer">
-          Yes <em>Yoga</em> One
-        </p>
+        <img src="/images/logo.jpg" alt="" className="v2-footer-logo" />
         <p>
           Ever grateful to <a href={site.artworkCredit.url}>{site.artworkCredit.label}</a> for the
-          beautiful artwork
+          beautiful artwork!
         </p>
         <p>
           © {new Date().getFullYear()} {site.legalName} · <a href="/">Classic site</a>
