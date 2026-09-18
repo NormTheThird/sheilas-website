@@ -170,12 +170,14 @@ export function HomePage() {
             </ul>
           </div>
         </div>
-        {/* Full-width map, as on the original site */}
-        <div id="contact_map" className="map-slot">
-          {site.mapEmbedUrl && (
-            <iframe src={site.mapEmbedUrl} title="Map" loading="lazy" allowFullScreen />
-          )}
-        </div>
+      </section>
+
+      {/* Full-width map — its own section, as on the original site, so the
+          skyline background above stays at the original crop */}
+      <section id="contact_map" className="map-slot">
+        {site.mapEmbedUrl && (
+          <iframe src={site.mapEmbedUrl} title="Map" loading="lazy" allowFullScreen />
+        )}
       </section>
     </>
   );
