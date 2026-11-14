@@ -12,7 +12,7 @@ addresses out of this file.
   add it under their name, then commit, `git pull --rebase`, and push so it
   shows up on their computer.
 
-Last updated 2026-11-14 (Sheila is added as a collaborator; her push has not arrived yet).
+Last updated 2026-11-14 (Sheila's push from her computer now works).
 
 ## For Trey
 
@@ -35,10 +35,6 @@ Last updated 2026-11-14 (Sheila is added as a collaborator; her push has not arr
 
 ## For Sheila
 
-- [ ] Get pushing working from her computer: accept the GitHub collaborator
-      invitation (check her email), sign in to GitHub on that computer
-      (`brew install gh`, then `gh auth login`), then have Claude commit and
-      push anything still sitting uncommitted there, pulling with rebase first.
 - [ ] Texas LLC (YesYogaOne, LLC): check My Submissions on the Secretary of
       State portal for approval. When approved: get the EIN from the IRS, open
       a business bank account, file the assumed name "Yes Yoga One" if wanted.
