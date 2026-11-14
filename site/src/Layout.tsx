@@ -3,28 +3,32 @@ import { site } from "./content";
 
 // The original theme shows different menus on the home page and inner pages.
 // All links render in the same teal; green is only the hover color.
-// The whole ported theme lives under /old/ now that the redesign is "/".
+// The whole ported theme lives under /archive/ (password-gated at CloudFront)
+// now that the redesign is "/".
 const HOME_NAV_LINKS = [
-  { href: "/old/#about", label: "Welcome" },
-  { href: "/old/#contact", label: "Contact Me" },
-  { href: "/old/#contact_map", label: "Locate Me" },
-  { href: "/old/testimonials/", label: "Testimonials" },
-  { href: "/old/faq/", label: "FAQ" },
+  { href: "/archive/#about", label: "Welcome" },
+  { href: "/archive/#contact", label: "Contact Me" },
+  { href: "/archive/#contact_map", label: "Locate Me" },
+  { href: "/archive/testimonials/", label: "Testimonials" },
+  { href: "/archive/faq/", label: "FAQ" },
 ];
 
 const INNER_NAV_LINKS = [
-  { href: "/old/", label: "Home" },
-  { href: "/old/#about", label: "Welcome" },
-  { href: "/old/#services", label: "Services" },
-  { href: "/old/#contact", label: "Contact Us" },
-  { href: "/old/#contact_map", label: "Locate Us" },
-  { href: "/old/testimonials/", label: "Testimonials" },
-  { href: "/old/faq/", label: "FAQ" },
+  { href: "/archive/", label: "Home" },
+  { href: "/archive/#about", label: "Welcome" },
+  { href: "/archive/#services", label: "Services" },
+  { href: "/archive/#contact", label: "Contact Us" },
+  { href: "/archive/#contact_map", label: "Locate Us" },
+  { href: "/archive/testimonials/", label: "Testimonials" },
+  { href: "/archive/faq/", label: "FAQ" },
 ];
 
 function Navbar({ currentPath }: { currentPath: string }) {
   const [open, setOpen] = useState(false);
-  const links = currentPath === "/old/" ? HOME_NAV_LINKS : INNER_NAV_LINKS;
+  // The "Locate" link targets the map section, so drop it while the map is hidden.
+  const links = (currentPath === "/archive/" ? HOME_NAV_LINKS : INNER_NAV_LINKS).filter(
+    (l) => site.showMap || !l.href.endsWith("#contact_map"),
+  );
   return (
     <nav className="main-menu" aria-label="Main navigation">
       <div className="container menu-inner">
@@ -65,7 +69,7 @@ export function Layout({ currentPath, children }: { currentPath: string; childre
       </a>
       <Navbar currentPath={currentPath} />
       <section className="logo-banner">
-        <a href="/old/">
+        <a href="/archive/">
           <img src="/images/logo.jpg" alt={`${site.name} — home`} className="logo-banner-img" />
         </a>
       </section>

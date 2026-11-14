@@ -18,7 +18,10 @@ public class HostingStackProps : StackProps
 /// <summary>
 /// Private S3 bucket fronted by CloudFront with Origin Access Control.
 /// A CloudFront Function rewrites directory URLs (/faq/ or /faq) to
-/// /faq/index.html so the prerendered pages resolve without a server.
+/// /faq/index.html so the prerendered pages resolve without a server, and
+/// asks for a password (HTTP Basic auth) on the archived classic site under
+/// /archive/. The gate is a courtesy curtain, not hard security: it keeps
+/// casual visitors and search engines off the old pages.
 /// </summary>
 public class HostingStack : Stack
 {
@@ -32,19 +35,85 @@ public class HostingStack : Stack
             RemovalPolicy = RemovalPolicy.RETAIN,
         });
 
-        var indexRewrite = new Function(this, "IndexRewrite", new FunctionProps
+        // The /archive/ password is supplied at deploy time, never committed
+        // (this repo is public): ARCHIVE_PASSWORD env var, or
+        // `cdk deploy -c archivePassword=...`. Only its SHA-256 reaches AWS.
+        var archivePassword = Node.TryGetContext("archivePassword") as string
+            ?? System.Environment.GetEnvironmentVariable("ARCHIVE_PASSWORD");
+        if (string.IsNullOrEmpty(archivePassword))
+        {
+            throw new System.InvalidOperationException(
+                "Set ARCHIVE_PASSWORD (or pass -c archivePassword=...) — the /archive/ password is needed to synth the hosting stack.");
+        }
+        var archivePasswordSha256 = System.Convert.ToHexString(
+            System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(archivePassword)))
+            .ToLowerInvariant();
+
+        var viewerRequest = new Function(this, "IndexRewrite", new FunctionProps
         {
             Runtime = FunctionRuntime.JS_2_0,
-            Code = FunctionCode.FromInline("""
+            Code = FunctionCode.FromInline($$"""
+                var crypto = require('crypto');
+                var ARCHIVE_PASSWORD_SHA256 = '{{archivePasswordSha256}}';
+
+                // The old WordPress site had these as separate pages; on the
+                // redesign they are sections of the home page.
+                var MOVED = {
+                    '/faq': '/#faq',
+                    '/testimonials': '/#testimonials'
+                };
+
                 function handler(event) {
                     var request = event.request;
                     var uri = request.uri;
+
+                    var trimmed = uri.length > 1 && uri.endsWith('/') ? uri.slice(0, -1) : uri;
+                    if (MOVED[trimmed]) {
+                        return {
+                            statusCode: 301,
+                            statusDescription: 'Moved Permanently',
+                            headers: { 'location': { value: MOVED[trimmed] } }
+                        };
+                    }
+
+                    // The archived classic site sits behind a browser password prompt.
+                    if ((uri === '/archive' || uri.startsWith('/archive/')) && !archiveAuthorized(request)) {
+                        return {
+                            statusCode: 401,
+                            statusDescription: 'Unauthorized',
+                            headers: {
+                                'www-authenticate': { value: 'Basic realm="Yes Yoga One archive"' },
+                                'cache-control': { value: 'no-store' }
+                            }
+                        };
+                    }
+
                     if (uri.endsWith('/')) {
                         request.uri = uri + 'index.html';
                     } else if (!uri.includes('.')) {
                         request.uri = uri + '/index.html';
                     }
                     return request;
+                }
+
+                // HTTP Basic auth: any user name, the password has to match.
+                function archiveAuthorized(request) {
+                    var header = request.headers.authorization;
+                    if (!header || !header.value.startsWith('Basic ')) {
+                        return false;
+                    }
+                    var decoded;
+                    try {
+                        decoded = Buffer.from(header.value.slice(6), 'base64').toString('utf8');
+                    } catch (e) {
+                        return false;
+                    }
+                    var colon = decoded.indexOf(':');
+                    if (colon < 0) {
+                        return false;
+                    }
+                    var password = decoded.slice(colon + 1);
+                    return crypto.createHash('sha256').update(password).digest('hex') === ARCHIVE_PASSWORD_SHA256;
                 }
                 """),
         });
@@ -61,7 +130,7 @@ public class HostingStack : Stack
                 [
                     new FunctionAssociation
                     {
-                        Function = indexRewrite,
+                        Function = viewerRequest,
                         EventType = FunctionEventType.VIEWER_REQUEST,
                     },
                 ],

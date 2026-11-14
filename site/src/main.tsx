@@ -11,7 +11,9 @@ if (document.title.includes("<!--")) {
 }
 
 // Prerendered pages hydrate; the bare dev-server template mounts fresh.
-if (container.hasChildNodes()) {
+// (The dev template holds only an <!--app-html--> comment, which is a child
+// node but not an element, so check for elements specifically.)
+if (container.firstElementChild) {
   hydrateRoot(container, app);
 } else {
   createRoot(container).render(app);

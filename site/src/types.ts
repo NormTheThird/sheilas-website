@@ -12,6 +12,8 @@ export interface SiteContent {
   email: string;
   social: LinkItem[];
   communityLocations: LinkItem[];
+  /** Map is hidden for now; flip this on to show mapEmbedUrl again. */
+  showMap: boolean;
   mapEmbedUrl: string;
   bookingEmbedUrl: string;
   formspreeFormId: string;

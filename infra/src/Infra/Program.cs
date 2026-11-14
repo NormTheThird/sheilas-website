@@ -9,13 +9,19 @@ var app = new App();
 var account = System.Environment.GetEnvironmentVariable("CDK_DEFAULT_ACCOUNT");
 var usEast1 = new Amazon.CDK.Environment { Account = account, Region = "us-east-1" };
 
-// Phase 5: uncomment once ready to attach the custom domain.
-// var certStack = new CertStack(app, "YesYogaOne-Cert", new StackProps { Env = usEast1 });
+// Phase 5: the custom domain. Deploy YesYogaOne-Cert first; it waits until
+// the ACM validation CNAMEs are added at GoDaddy. Then deploy the hosting
+// stack, which attaches the certificate and the domain names to CloudFront.
+var certStack = new CertStack(app, "YesYogaOne-Cert", new StackProps { Env = usEast1 });
+
+var domainName = (string)app.Node.TryGetContext("domainName");
+var siteSubdomain = (string)app.Node.TryGetContext("siteSubdomain");
 
 var hosting = new HostingStack(app, "YesYogaOne-Hosting", new HostingStackProps
 {
     Env = usEast1,
-    // Phase 5: Certificate = certStack.Certificate, DomainNames = ["www.yesyogaone.net", "yesyogaone.net"]
+    Certificate = certStack.Certificate,
+    DomainNames = [$"{siteSubdomain}.{domainName}", domainName],
 });
 
 app.Synth();

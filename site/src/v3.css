@@ -5,6 +5,9 @@
 
 .v3 {
   --v3-white: #ffffff;
+  /* the classic stylesheet pads <body> 70px for its fixed menu bar; pull the
+     redesign back up so its own header sits flush with the top of the page */
+  margin-top: -70px;
   --v3-sage-wash: #eef1e8;
   --v3-sage: #8a9a7b;
   --v3-sage-deep: #5f6f52;
@@ -143,31 +146,58 @@
 }
 
 /* ===== Header ===== */
+/* A slim bar of centered small-caps links with a sage underline that grows
+   in on hover. No wordmark: the hero logo right below already carries it. */
 .v3-header {
   position: sticky;
   top: 0;
   z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1.1rem 1.5rem;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--v3-line);
 }
 
+.v3-header-inner {
+  max-width: var(--v3-max);
+  margin: 0 auto;
+  padding: 0.5rem 1.25rem;
+  min-height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .v3-nav {
   display: flex;
-  gap: 1.75rem;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .v3-nav a {
-  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  padding: 0.35rem 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--v3-ink);
+}
+
+.v3-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.1rem;
+  height: 2px;
+  background: var(--v3-sage);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
 }
 
 .v3-nav a:hover,
@@ -175,30 +205,56 @@
   color: var(--v3-sage-deep);
 }
 
+.v3-nav a:hover::after,
+.v3-nav a:focus::after {
+  transform: scaleX(1);
+}
+
 @media (max-width: 47.99rem) {
-  .v3-nav {
-    flex-wrap: wrap;
-    gap: 0.75rem 1.1rem;
+  .v3-header-inner {
     justify-content: center;
+    padding: 0.6rem 1rem;
+  }
+
+  .v3-nav {
+    justify-content: center;
+    gap: 0.2rem 1rem;
   }
 }
 
 /* ===== Hero ===== */
+/* Centered single column: the logo artwork (which includes the wordmark)
+   is the headline, framed by the eyebrow above and the greeting below. */
 .v3-hero {
-  padding: 4.5rem 0 5rem;
+  padding: 3rem 0 5rem;
   background: var(--v3-white);
 }
 
-.v3-hero-grid {
-  display: grid;
-  gap: 3rem;
+.v3 .v3-hero {
+  text-align: center;
+}
+
+.v3-hero-inner {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-@media (min-width: 48rem) {
-  .v3-hero-grid {
-    grid-template-columns: 7fr 5fr;
-  }
+.v3-hero-brand {
+  margin: 1.25rem 0 1.5rem;
+  line-height: 0;
+}
+
+.v3-hero-brand img {
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  display: block;
+}
+
+.v3-hero .v3-lead {
+  max-width: 34rem;
+  margin: 0 auto;
 }
 
 .v3-cta-row {
@@ -208,12 +264,18 @@
   margin-top: 2rem;
 }
 
-.v3-hero-logo img {
-  width: 100%;
-  max-width: 24rem;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+.v3-hero .v3-cta-row {
+  justify-content: center;
+}
+
+@media (min-width: 48rem) {
+  .v3-hero {
+    padding-top: 4.5rem;
+  }
+
+  .v3-hero-brand img {
+    max-width: 38rem;
+  }
 }
 
 /* arch-shaped portrait, a signature organic-wellness shape */

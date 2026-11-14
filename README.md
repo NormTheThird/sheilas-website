@@ -24,9 +24,30 @@ npm run build      # static output in site/dist (prerendered HTML per route)
 npm run cms        # decap-server, for editing content at /admin locally
 ```
 
-Routes: `/`, `/testimonials/`, `/faq/` — each prerendered to its own `index.html`,
-no client-side router, so S3/CloudFront serves them without rewrites (a CloudFront
-Function maps `/faq/` → `/faq/index.html`).
+Routes: `/` (the redesign) plus the archived classic site at `/archive/`,
+`/archive/testimonials/` and `/archive/faq/` — each prerendered to its own
+`index.html`, no client-side router, so S3/CloudFront serves them without rewrites
+(a CloudFront Function maps `/faq/` → `/faq/index.html`).
+
+### The archive password
+
+`/archive/` is behind a browser password prompt (HTTP Basic auth, any user name).
+It is a curtain, not a vault — it just keeps casual visitors and search engines off
+the old site. The password is never committed; it is supplied when the hosting
+stack is deployed and only its SHA-256 hash ends up in the CloudFront Function:
+
+```bash
+cd infra
+ARCHIVE_PASSWORD='the-password' cdk deploy YesYogaOne-Hosting
+```
+
+To change it, deploy again with a new value. To try the prompt locally:
+
+```bash
+ARCHIVE_PASSWORD='the-password' npm run dev
+```
+
+Without the variable the dev server leaves `/archive/` open.
 
 ## Content editing (Sheila)
 
@@ -44,7 +65,7 @@ Production GitHub-backed auth is phase 3 (needs a small OAuth gateway — see
 
 ```bash
 cd infra
-cdk deploy YesYogaOne-Hosting
+ARCHIVE_PASSWORD='the-password' cdk deploy YesYogaOne-Hosting
 ```
 
 Then set repo variables `AWS_DEPLOY_ROLE_ARN`, `S3_BUCKET`,

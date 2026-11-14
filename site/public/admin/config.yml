@@ -46,6 +46,7 @@ collections:
             fields:
               - { name: label, label: Label, widget: string }
               - { name: url, label: URL, widget: string }
+          - { name: showMap, label: Show Map, widget: boolean, default: false }
           - { name: mapEmbedUrl, label: Map Embed URL, widget: string, required: false }
           - { name: bookingEmbedUrl, label: Booking Embed URL, widget: string, required: false }
           - { name: formspreeFormId, label: Formspree Form ID, widget: string, required: false }

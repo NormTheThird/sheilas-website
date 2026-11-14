@@ -117,12 +117,13 @@ export function HomePage() {
       </section>
 
       {/* Full-width map — its own section, as on the original site, so the
-          skyline background above stays at the original crop */}
-      <section id="contact_map" className="map-slot">
-        {site.mapEmbedUrl && (
+          skyline background above stays at the original crop. Hidden while
+          site.showMap is off. */}
+      {site.showMap && site.mapEmbedUrl && (
+        <section id="contact_map" className="map-slot">
           <iframe src={site.mapEmbedUrl} title="Map" loading="lazy" allowFullScreen />
-        )}
-      </section>
+        </section>
+      )}
     </>
   );
 }
