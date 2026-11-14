@@ -130,8 +130,8 @@ needs redeploying if the domain names change.
   flattens it to A/AAAA), the two ACM validation CNAMEs, and a legacy `kz3-1`
   A record. All records are "DNS only" (grey cloud, not proxied); keep them
   that way so CloudFront terminates TLS with the ACM certificate.
-- The registration is being transferred from GoDaddy to Cloudflare Registrar;
-  DNS records are unaffected by the transfer.
+- The domain is registered at Cloudflare Registrar (transferred from GoDaddy
+  on 2026-11-14; expires 2028-03-10, auto-renew on, about $12/yr at cost).
 - The old WordPress site at Flywheel can be cancelled about a week after launch.
 
 ## Still to do
