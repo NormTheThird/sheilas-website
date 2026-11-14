@@ -124,10 +124,14 @@ needs redeploying if the domain names change.
   validated by two CNAME records that must stay in DNS for yearly renewal.
 - CloudFront distribution `E1JC63PHMH3JFX` (`d3mhq8iu4z4wna.cloudfront.net`)
   answers for both names.
-- DNS is at GoDaddy as of launch (`www` CNAME to CloudFront; bare domain
-  forwarded to www). A move of DNS and the registration to Cloudflare is in
-  progress; once done the bare domain becomes a flattened CNAME to CloudFront
-  and both site records stay "DNS only" (not proxied).
+- DNS is hosted at Cloudflare (nameservers `abdullah.ns.cloudflare.com` and
+  `rayne.ns.cloudflare.com`, moved from GoDaddy on 2026-11-14). Records:
+  `www` CNAME to CloudFront, bare domain CNAME to CloudFront (Cloudflare
+  flattens it to A/AAAA), the two ACM validation CNAMEs, and a legacy `kz3-1`
+  A record. All records are "DNS only" (grey cloud, not proxied); keep them
+  that way so CloudFront terminates TLS with the ACM certificate.
+- The registration is being transferred from GoDaddy to Cloudflare Registrar;
+  DNS records are unaffected by the transfer.
 - The old WordPress site at Flywheel can be cancelled about a week after launch.
 
 ## Still to do
