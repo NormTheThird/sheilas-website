@@ -132,7 +132,14 @@ needs redeploying if the domain names change.
   that way so CloudFront terminates TLS with the ACM certificate.
 - The domain is registered at Cloudflare Registrar (transferred from GoDaddy
   on 2026-11-14; expires 2028-03-10, auto-renew on, about $12/yr at cost).
-- The old WordPress site at Flywheel can be cancelled about a week after launch.
+- The old WordPress site at Flywheel is backed up and being shut down. The
+  full Flywheel backup (database dump + `wp-content`: the `yes_yoga_one`
+  theme, 7 plugins, 37 uploads; 78 MB zip, 2,064 files) is in the private S3
+  bucket `yesyogaone-backups-722855777909` at
+  `flywheel/YesYogaOne-2026-11-14-full-backup.zip` (SHA-256
+  `9b11e93b…ef33f4d`, full hash in `DEVLOG.md`). It is deliberately not in
+  this public repo: the database holds WordPress password hashes and plugin
+  settings. The rendered pages and theme CSS are still in `archive/`.
 
 ## Still to do
 

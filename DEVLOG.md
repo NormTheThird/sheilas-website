@@ -62,9 +62,27 @@ Infra and hosting:
 - Trey's Mac now has the .NET 10 SDK (`brew install dotnet@10`, linked) and
   the CDK CLI (`npm install -g aws-cdk`) for `cdk deploy`.
 
-In progress (separate session): moving DNS, then the domain registration, from
-GoDaddy to Trey's Cloudflare account, and closing the GoDaddy account once it
-is empty. When that lands, update the DNS notes in README and here.
+DNS and registration moved to Trey's Cloudflare account the same afternoon
+(separate session): nameservers abdullah/rayne.ns.cloudflare.com, records all
+DNS-only, apex as a flattened CNAME to CloudFront, both ACM validation CNAMEs
+kept. The domain transferred to Cloudflare Registrar (auto-renew, expires
+2028-03-11). The GoDaddy account is empty and will be closed after GoDaddy's
+24-hour wait.
+
+Flywheel backup before shutdown: requested Flywheel's full backup of
+2026-11-14 03:19 UTC (3 pages, 7 plugins, WP 7.1.4), downloaded as a 78 MB
+zip (116 MB unpacked, 2,064 files: `backup.sql` with 38 tables, and
+`files/wp-content/` with the `yes_yoga_one` theme, the plugins
+what-the-file, contact-form-7, bootstrap-for-contact-form-7,
+advanced-custom-fields-pro, acf-theme-code-pro, wp-google-maps and
+acuity-online-appointment-scheduling, and 37 uploads). Integrity checked;
+SHA-256 `9b11e93b701e4adb41c3ef2fde87602749a2bac8edc01d58814ff3435ef33f4d`.
+Stored in a new private, encrypted, versioned S3 bucket
+`yesyogaone-backups-722855777909` (us-east-1) at
+`flywheel/YesYogaOne-2026-11-14-full-backup.zip`, STANDARD_IA. Not committed
+here because the repo is public and the dump contains password hashes. The
+wp-admin content export was skipped: its login link points at
+www.yesyogaone.net, which now resolves to the new site.
 
 Hosting cost is effectively zero: ~32 MB in S3, CloudFront inside its
 always-free tier, certificate free.
