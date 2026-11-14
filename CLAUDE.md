@@ -15,6 +15,11 @@ they are done. When a task needs the other person, add it to their list,
 commit, pull with rebase, and push so it appears on their computer. Never put
 secrets, tracking numbers, tax IDs or addresses in it; the repo is public.
 
+When a request comes up in conversation (a new feature, a technical change,
+anything involving accounts, hosting, payments or infrastructure), **ask:
+"Should I build this now, or add it to Trey's list?"** If it goes on the list,
+add it under "For Trey" in `TODO.md` with enough detail to act on.
+
 ## The one rule that matters most: sync before you push
 
 Both computers push to `main`, and every push to `main` that touches `site/**`
@@ -31,20 +36,6 @@ or `content/**` deploys straight to the live site. So:
    English. Pulling frequently is what lets both people's work combine.
 
 Work on `main` directly; this project does not use branches or pull requests.
-
-## Trey's to-do list
-
-`TREY-TODO.md` is the list of things Sheila needs Trey to do. When a request
-comes up in conversation (a new feature, a technical change, anything involving
-accounts, hosting, payments or infrastructure), **ask: "Should I build this
-now, or add it to Trey's list?"** If it goes on the list, add a clear
-checkbox item with today's date. When Trey finishes one, move it to "Done".
-
-**If you are working with Trey** (git user `normthethird`, or he says he is
-Trey), then right after the session-start `git pull --rebase origin main`, read
-`TREY-TODO.md` and show him everything under "To do", especially anything
-added since his last pull (check `git log -p` on that file). Ask which he
-wants to tackle. If the list is empty, say so in one line.
 
 ## Where things live
 

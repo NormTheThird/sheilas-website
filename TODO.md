@@ -27,6 +27,12 @@ Last updated 2026-11-14 (Sheila is added as a collaborator; her push has not arr
 - [ ] Decide what to do with the `/v2/` beginner-friendly concept (dev
       server only for now): keep, change, or drop.
 
+- [ ] Add Stripe payments: wire payments into the site so clients can pay for
+      services. The site already shows a Book / Pay button when a service has
+      a Stripe Payment Link URL in `content/services.json`; decide whether
+      Payment Links are enough or something more is needed. (Sheila creates
+      her own Stripe account first; see her list.)
+
 ## For Sheila
 
 - [ ] Get pushing working from her computer: accept the GitHub collaborator
