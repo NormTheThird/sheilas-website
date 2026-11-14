@@ -86,6 +86,10 @@ always-free tier, certificate free.
 
 ## Open items
 
+- Close the now-empty GoDaddy account (after 2026-11-15; GoDaddy wants 24h
+  after the last product leaves). Cancel the Flywheel plan once the full
+  backup is downloaded and stored; delete the unused second Flywheel account.
+
 - Sheila's bio still describes Sioux Falls; the `bio` field in
   `content/about.json` is the only edit needed for Corpus Christi.
 - Services are all `active: false` until descriptions, durations and prices
