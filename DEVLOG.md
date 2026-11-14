@@ -19,6 +19,37 @@ include the other person's latest work before it goes out:
 - If you see "rejected: fetch first" on push, that is the other person's
   work. Pull, resolve anything git flags, build, push again. Never force-push.
 
+## Picking this up on a new computer
+
+Everything needed is in this repo except secrets and local tooling. Claude
+Code's own memory notes are per computer and do not travel, so nothing
+important lives only there; if it matters, it is in this file, `TODO.md`,
+`README.md` or `CLAUDE.md`. Start a new machine like this:
+
+1. Follow "Setting up on a new computer" in `README.md`, then `git pull`.
+2. Read `CLAUDE.md`, `TODO.md` and this log, in that order.
+3. Day-to-day site and content work needs only Node. Pushing to `main`
+   deploys by itself.
+
+Not in the repo, and needed only for infrastructure changes (`infra/`):
+- The .NET 10 SDK (`brew install dotnet@10`, then `brew link --force
+  dotnet@10`) and the CDK CLI (`npm install -g aws-cdk`).
+- AWS credentials for account 722855777909 (`aws configure` with an IAM access
+  key). The keys live in a password manager, never in the repo.
+- The `/archive/` password. It is set at deploy time with
+  `ARCHIVE_PASSWORD=... cdk deploy YesYogaOne-Hosting` and only its hash is
+  stored in AWS. Deploying without the same password changes it; ask Trey or
+  Sheila for it.
+
+Where things live: code and the deploy pipeline on GitHub; hosting (S3,
+CloudFront, certificate) on AWS; DNS and the domain registration on Cloudflare
+(`yesyogaone.net`, expires 2028-03-11); the Texas LLC filing on the Secretary
+of State portal under Sheila's account; Stripe not set up yet; WordPress at
+Flywheel being cancelled; GoDaddy being closed. Dashboards that need a sign-in
+(Cloudflare, AWS, GitHub, the state portal) are the account owner's to open;
+Claude can read screens but does not type passwords, bank details, tax IDs or
+verification codes.
+
 ## 2026-11-14 — Launch day
 
 The redesign went live at https://www.yesyogaone.net, replacing the
@@ -58,7 +89,8 @@ Infra and hosting:
 - Certificate stack deployed; validated via two CNAMEs added at GoDaddy.
 - DNS at GoDaddy: `www` CNAME → CloudFront; bare domain → GoDaddy HTTPS
   forwarding (301) to www. Public resolvers switched within minutes.
-- Flywheel/WordPress left running untouched; cancel after about a week.
+- Flywheel/WordPress was left running through launch; see the cleanup entry
+  below for the shutdown.
 - Trey's Mac now has the .NET 10 SDK (`brew install dotnet@10`, linked) and
   the CDK CLI (`npm install -g aws-cdk`) for `cdk deploy`.
 
@@ -86,6 +118,69 @@ www.yesyogaone.net, which now resolves to the new site.
 
 Hosting cost is effectively zero: ~32 MB in S3, CloudFront inside its
 always-free tier, certificate free.
+
+## 2026-11-14 (evening) — Business setup, shutdown and the to-do list
+
+Shutting down the old hosting:
+- Flywheel's plan (Tiny Plan, $15/month, next bill 2026-11-24) was cancelled
+  through Flywheel's cancel form. The form only collects a reason; their
+  Billing Team then emails to complete it, with a 30 day notice, so one more
+  charge is expected. Confirm the subscription shows as Cancelled. The full
+  backup is stored first (see above).
+- An unused second Flywheel/WP Engine login was found to be one of three
+  owners of an unrelated WP Engine account. Trey removed himself from that
+  account (the other owners remain) and emailed Flywheel support, from that
+  login's own address, to delete the login and its data. Flywheel has no
+  self-service delete: accounts are managed in WP Engine and closed by
+  support. Waiting on their reply.
+- GoDaddy now holds nothing but old receipts. The account can be closed from
+  the afternoon of 2026-11-15 (GoDaddy asks for 24 hours after the last
+  product leaves). Closing is irreversible and needs the account owner's own
+  click.
+
+Texas LLC (needed before Stripe):
+- The old South Dakota LLC YES YOGA ONE, LLC is administratively dissolved and
+  its DBA expired, so it cannot be used for payments.
+- A new Texas LLC, YesYogaOne, LLC (no spaces, same as the site footer's
+  `legalName`), was filed on 2026-11-14 through the Secretary of State's
+  SOSPortal, as a new veteran-owned business. Sheila holds a Texas Veterans
+  Commission Veteran Verification Letter (valid for entities formed before
+  2031-07-20). A 100% veteran-owned new Texas LLC gets the formation filing
+  fee and the franchise tax waived for five years. The filing attached the
+  letter and Comptroller Form 05-904 and checked the veteran-owned box. Sheila
+  is the sole member and owner. Adding any owner without a letter, or any
+  change of ownership, would end the exemption, so check before changing it.
+- The upload link in the Veterans Commission email is dead. Texas replaced
+  SOSDirect and SOSUpload with SOSPortal on 2026-09-29.
+- Status: Received, waiting for state approval. Next, in order: EIN from the
+  IRS (free), business bank account, assumed name "Yes Yoga One" if wanted
+  (the veteran letter waives only the formation fee and franchise tax, not
+  this), then Stripe.
+
+Payments decisions:
+- Stripe Payment Links, not custom checkout code. The site already shows a
+  Book / Pay button for any service with a `stripePaymentLink` in
+  `content/services.json`. No keys or server needed, so nothing secret goes in
+  the repo.
+- Neither Stripe account the family already had can be used: one belongs to a
+  different business, the other is a payout-only Express account from a
+  marketplace. Sheila needs her own Stripe account under the new LLC, created
+  by her (bank, identity and tax details are hers to enter).
+- Bookkeeping in Wave (free accounting). Wave's own payments center on
+  invoices; no embeddable website buy button was found. Plan: Stripe for
+  checkout, Wave for the books, with a monthly Stripe payout import (Zapier or
+  a connector later if volume grows).
+- Still to build on the site: service cards on the redesign with Book / Pay
+  buttons (the redesign shows only the services heading and intro today), and
+  a products section if wanted. Prices and durations for all four services are
+  still blank, which is why they stay hidden.
+
+Team process:
+- `TODO.md` is the shared task list with sections for Trey, for Sheila,
+  waiting on others, and ready to build. `CLAUDE.md` tells Claude to read it at
+  the start of every session and after every pull, and to ask "build this now,
+  or add it to Trey's list?" when a request involves accounts, hosting,
+  payments or infrastructure. Sheila's computer can push as of this evening.
 
 ## 2026-09-17 to 2026-09-18 — Redesign and hosting
 
