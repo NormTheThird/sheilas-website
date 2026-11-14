@@ -14,15 +14,53 @@ with a prerendered React site on S3 + CloudFront for near-zero monthly cost.
 | `/archive`  | Snapshot of the old WordPress pages/theme, and original full-size images |
 | `/.github`  | Actions workflow: build → S3 sync → CloudFront invalidation (OIDC)   |
 
+The site is live at https://www.yesyogaone.net (since 2026-11-14). `CLAUDE.md`
+is the guide Claude Code reads on every machine; `DEVLOG.md` is the history.
+
+## Setting up on a new computer
+
+Both Trey and Sheila work on this repo with Claude Code. One-time setup:
+
+1. Install [Git](https://git-scm.com/download/mac), [Node.js 22 or newer](https://nodejs.org)
+   and the [Claude desktop app](https://claude.ai/download) (its Code tab runs
+   Claude Code), or `npm install -g @anthropic-ai/claude-code` for the terminal.
+2. Get push access: the GitHub account you use must be a collaborator on
+   `NormTheThird/sheilas-website` (Trey adds it under the repo's Settings →
+   Collaborators). Sign in to GitHub in Git once, for example with
+   `gh auth login` or the macOS keychain prompt on the first push.
+3. Tell Git who you are:
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "you@example.com"
+   ```
+4. Clone and install:
+   ```bash
+   git clone https://github.com/NormTheThird/sheilas-website.git
+   cd sheilas-website/site
+   npm install
+   ```
+5. Open the `sheilas-website` folder in Claude Code and ask it what you want
+   changed. It reads `CLAUDE.md` and knows the rules, including pulling the
+   other person's changes before pushing.
+
+Only Trey's machine needs the deploy tooling (`infra/`): the .NET 10 SDK
+(`brew install dotnet@10`, then `brew link --force dotnet@10`) and the CDK CLI
+(`npm install -g aws-cdk`) plus AWS credentials. Day-to-day site and content
+work never needs them; pushing to `main` deploys by itself.
+
 ## Local development
 
 ```bash
 cd site
 npm install
 npm run dev        # dev server at http://localhost:5173
+npm run typecheck  # run before pushing
 npm run build      # static output in site/dist (prerendered HTML per route)
 npm run cms        # decap-server, for editing content at /admin locally
 ```
+
+`/v2/` on the dev server is a beginner-friendly concept kept for discussion;
+it is never deployed (see `previewRoutes` in `site/src/routes.tsx`).
 
 Routes: `/` (the redesign) plus the archived classic site at `/archive/`,
 `/archive/testimonials/` and `/archive/faq/` — each prerendered to its own
@@ -61,26 +99,46 @@ Production GitHub-backed auth is phase 3 (needs a small OAuth gateway — see
 - The bio still mentions Sioux Falls; updating it for Corpus Christi is a single
   field edit (`content/about.json` → `bio`).
 
-## Deploying (phase 2+)
+## Deploying
+
+**The site:** push to `main`. The GitHub Actions workflow builds, syncs
+`site/dist` to S3 and invalidates CloudFront on every push touching `site/**`
+or `content/**`. It uses repo variables `AWS_DEPLOY_ROLE_ARN`, `S3_BUCKET` and
+`CLOUDFRONT_DISTRIBUTION_ID`, already set. Because two people push from two
+computers, always `git pull --rebase origin main` before pushing (see
+`DEVLOG.md`).
+
+**The infrastructure** (only when `infra/` changes):
 
 ```bash
 cd infra
 ARCHIVE_PASSWORD='the-password' cdk deploy YesYogaOne-Hosting
 ```
 
-Then set repo variables `AWS_DEPLOY_ROLE_ARN`, `S3_BUCKET`,
-`CLOUDFRONT_DISTRIBUTION_ID` and the workflow deploys on every push to `main`
-touching `site/**` or `content/**`.
+`YesYogaOne-Cert` holds the ACM certificate and is already deployed; it only
+needs redeploying if the domain names change.
 
-## Phases
+## Domain and DNS
 
-1. ✅ Scaffold site + content model + local dev; port live content
-2. CDK hosting stack; deploy to CloudFront URL; CI pipeline
-3. Decap CMS wired to GitHub (OAuth gateway); Sheila edits → auto-deploy
-4. Services with Stripe Payment Links, Formspree contact form
-5. ACM cert + custom domain; flip GoDaddy DNS; cancel Flywheel after a week
+- Certificate: ACM in us-east-1 for `www.yesyogaone.net` and `yesyogaone.net`,
+  validated by two CNAME records that must stay in DNS for yearly renewal.
+- CloudFront distribution `E1JC63PHMH3JFX` (`d3mhq8iu4z4wna.cloudfront.net`)
+  answers for both names.
+- DNS is at GoDaddy as of launch (`www` CNAME to CloudFront; bare domain
+  forwarded to www). A move of DNS and the registration to Cloudflare is in
+  progress; once done the bare domain becomes a flattened CNAME to CloudFront
+  and both site records stay "DNS only" (not proxied).
+- The old WordPress site at Flywheel can be cancelled about a week after launch.
 
-## Cost target
+## Still to do
 
-< $3/month: S3 (pennies), CloudFront (free tier / pennies at this traffic), ACM (free),
-Route 53 only if we migrate DNS ($0.50/zone). No servers, no databases.
+- Decap CMS wired to GitHub (OAuth gateway) so content can be edited in a
+  browser form; until then content is edited in `content/*.json`.
+- Services with Stripe Payment Links; Formspree ID for the contact form.
+- Sheila's bio for Corpus Christi (`content/about.json` → `bio`).
+
+## Cost
+
+Effectively $0/month: ~32 MB in S3 (under a cent), CloudFront inside its
+always-free tier at this traffic, certificate free. No servers, no databases.
+The domain renewal is the only recurring bill.
