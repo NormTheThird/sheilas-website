@@ -5,6 +5,16 @@ Therapist). Two people work on it from different computers, each with Claude
 Code: Trey (built it) and Sheila (owns the content). Read `DEVLOG.md` for the
 history and `README.md` for setup.
 
+## Start of every session: read TODO.md
+
+`TODO.md` is the shared to-do list for Trey and Sheila. At the start of every
+session, and again after every pull that brings in new commits, read it and
+tell the person you are working with what is on their list, then what is under
+"Waiting on others". Ask who they are if it is not obvious. Delete items when
+they are done. When a task needs the other person, add it to their list,
+commit, pull with rebase, and push so it appears on their computer. Never put
+secrets, tracking numbers, tax IDs or addresses in it; the repo is public.
+
 ## The one rule that matters most: sync before you push
 
 Both computers push to `main`, and every push to `main` that touches `site/**`

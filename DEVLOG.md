@@ -104,15 +104,6 @@ always-free tier, certificate free.
 
 ## Open items
 
-- Close the now-empty GoDaddy account (after 2026-11-15; GoDaddy wants 24h
-  after the last product leaves). Cancel the Flywheel plan once the full
-  backup is downloaded and stored; delete the unused second Flywheel account.
-
-- Sheila's bio still describes Sioux Falls; the `bio` field in
-  `content/about.json` is the only edit needed for Corpus Christi.
-- Services are all `active: false` until descriptions, durations and prices
-  are confirmed.
+Live open items are in `TODO.md`, split by person. Longer-term, not urgent:
 - Decap CMS in production needs an OAuth gateway (phase 3). Until then content
   is edited in the JSON files, which Claude Code does comfortably.
-- Formspree form ID for the contact form; Stripe Payment Links for services.
-- Decide the fate of the `/v2/` beginner concept.
