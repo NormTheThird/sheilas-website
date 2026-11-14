@@ -37,6 +37,13 @@ or `content/**` deploys straight to the live site. So:
 
 Work on `main` directly; this project does not use branches or pull requests.
 
+**Remind Sheila to publish.** When Sheila finishes a round of changes (content,
+design or code) and they are not pushed yet, say so plainly before the session
+ends: "These changes are only on your computer. Want me to push them so they go
+live on the site?" Then, if she says yes, run the pull, typecheck and build
+steps above and push. Don't push site changes without her yes, since a push
+publishes them within minutes.
+
 ## Where things live
 
 | Path | What |
