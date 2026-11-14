@@ -27,11 +27,15 @@ Last updated 2026-11-14 (Sheila's push from her computer now works).
 - [ ] Decide what to do with the `/v2/` beginner-friendly concept (dev
       server only for now): keep, change, or drop.
 
-- [ ] Add Stripe payments: wire payments into the site so clients can pay for
-      services. The site already shows a Book / Pay button when a service has
-      a Stripe Payment Link URL in `content/services.json`; decide whether
-      Payment Links are enough or something more is needed. (Sheila creates
-      her own Stripe account first; see her list.)
+- [ ] Add Stripe payments (decided: Stripe Payment Links, not custom code; the
+      site already shows a Book / Pay button when a service has a link in
+      `content/services.json`). Blocked on Sheila's LLC, EIN, bank account
+      and her own Stripe account. Neither existing Stripe account fits: one
+      belongs to another business, the other is a payout-only account from a
+      marketplace. Meanwhile build the service cards and the Book / Pay
+      buttons on the redesign (hidden services need prices first), and a
+      products section if wanted. Bookkeeping plan: Stripe for checkout, Wave
+      for books, with a monthly payout import.
 
 ## For Sheila
 
